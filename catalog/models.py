@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 
 
 # Create your models here.
@@ -36,7 +35,7 @@ class Category(models.Model):
 	
 	def __str__(self):
 		# Строковое отображение категории
-		return f'{self.name} {self.description} {self.created_at}'
+		return f'{self.name} {self.description}'
 		
 	class Meta:
 		verbose_name = 'категория'  # Настройка наименования одного объекта
