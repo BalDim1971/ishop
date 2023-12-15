@@ -33,7 +33,6 @@ class Category(models.Model):
 	
 	name = models.CharField(max_length=50, verbose_name='наименование', db_index=True)
 	description = models.TextField(verbose_name='описание')
-	created_at = models.DateTimeField(verbose_name='время создания категории', default=timezone.now)
 	
 	def __str__(self):
 		# Строковое отображение категории
