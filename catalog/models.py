@@ -21,8 +21,8 @@ class Product(models.Model):
 		return f'{self.name} {self.description}'
 	
 	class Meta:
-		# Начальные настройки?
-		pass
+		verbose_name = 'товар'  # Настройка наименования одного объекта
+		verbose_name_plural = 'товары'   # Настройка для наименования набора
 
 
 class Category(models.Model):
@@ -38,5 +38,5 @@ class Category(models.Model):
 		return f'{self.name} {self.description}'
 		
 	class Meta:
-		# Начальные настройки?
-		pass
+		verbose_name = 'категория'  # Настройка наименования одного объекта
+		verbose_name_plural = 'категории'   # Настройка для наименования набора
