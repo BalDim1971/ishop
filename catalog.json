@@ -1,0 +1,86 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 14,
+    "fields": {
+      "name": "Аудиотехника",
+      "description": "Портативное/ домашнее аудио, наушники, автозвук"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 15,
+    "fields": {
+      "name": "Техника для кухни",
+      "description": "Крупная/ мелкая/ встраиваемая"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 16,
+    "fields": {
+      "name": "Техника для дома",
+      "description": "Климатическая техника, уход за одеждой"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 17,
+    "fields": {
+      "name": "Умный дом",
+      "description": "Экосистемы, устройства, умный свет, датчики"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name": "Наушники",
+      "description": "Полноразмерные",
+      "preview": "",
+      "category": 14,
+      "price": "2300.00",
+      "date_create": "2023-12-16T13:56:53.984Z",
+      "date_last_change": "2023-12-16T13:56:53.984Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name": "Кофемашина",
+      "description": "Автоматическая",
+      "preview": "",
+      "category": 15,
+      "price": "20000.00",
+      "date_create": "2023-12-16T13:57:36.696Z",
+      "date_last_change": "2023-12-16T13:57:36.696Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "name": "Робот-пылесос",
+      "description": "Для влажной уборки",
+      "preview": "",
+      "category": 16,
+      "price": "30000.00",
+      "date_create": "2023-12-16T13:58:11.579Z",
+      "date_last_change": "2023-12-16T13:58:11.579Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+      "name": "Датчик открытия дверей и окон",
+      "description": "Экосистема Яндекс",
+      "preview": "",
+      "category": 17,
+      "price": "2000.00",
+      "date_create": "2023-12-16T13:58:41.186Z",
+      "date_last_change": "2023-12-16T13:58:41.186Z"
+    }
+  }
+]

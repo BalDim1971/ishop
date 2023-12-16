@@ -1,42 +1,44 @@
 from django.db import models
 
+NULLABLE = {'blank': True, 'null': True}
+
 
 # Create your models here.
-
-class Product(models.Model):
-	'''
-	Класс-модель, описывающий некий продукт.
-	'''
-	
-	name = models.CharField(max_length=50, verbose_name='наименование')
-	description = models.TextField(verbose_name='описание')
-	preview = models.ImageField(verbose_name='превью')
-	category = models.ForeignKey('Category', on_delete=models.PROTECT)
-	price = models.IntegerField(verbose_name='цена за штуку')
-	date_create = models.DateTimeField(verbose_name='время создания')
-	date_last_change = models.DateTimeField(verbose_name='время последнего изменения')
-	
-	def __str__(self):
-		# Строковое отображение продукта
-		return f'{self.name} {self.description}'
-	
-	class Meta:
-		verbose_name = 'товар'  # Настройка наименования одного объекта
-		verbose_name_plural = 'товары'   # Настройка для наименования набора
-
 
 class Category(models.Model):
 	'''
 	Класс-модель, описывающий некоторую категорию продуктов.
 	'''
 	
-	name = models.CharField(max_length=50, verbose_name='наименование', db_index=True)
-	description = models.TextField(verbose_name='описание')
+	name = models.CharField(max_length=50, verbose_name='Наименование', db_index=True)
+	description = models.TextField(verbose_name='Описание')
 	
 	def __str__(self):
 		# Строковое отображение категории
-		return f'{self.name} {self.description}'
-		
+		return f'{self.name} ({self.description})'
+	
 	class Meta:
 		verbose_name = 'категория'  # Настройка наименования одного объекта
-		verbose_name_plural = 'категории'   # Настройка для наименования набора
+		verbose_name_plural = 'категории'  # Настройка для наименования набора
+
+
+class Product(models.Model):
+	'''
+	Класс-модель, описывающий некий продукт.
+	'''
+	
+	name = models.CharField(max_length=50, verbose_name='Наименование')
+	description = models.TextField(verbose_name='Описание')
+	preview = models.ImageField(upload_to='product/', verbose_name='Изображение', **NULLABLE)
+	category = models.ForeignKey(to='Category', on_delete=models.CASCADE, verbose_name='Категория')
+	price = models.DecimalField(max_digits=9, decimal_places=2, verbose_name='Цена за штуку')
+	date_create = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
+	date_last_change = models.DateTimeField(auto_now_add=True, verbose_name='Дата последнего изменения')
+	
+	def __str__(self):
+		# Строковое отображение продукта
+		return f'{self.name} ({self.category}) {self.price}'
+	
+	class Meta:
+		verbose_name = 'товар'  # Настройка наименования одного объекта
+		verbose_name_plural = 'товары'  # Настройка для наименования набора
