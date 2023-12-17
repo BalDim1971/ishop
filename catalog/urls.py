@@ -6,8 +6,9 @@ URL configuration для приложения catalog.
 from django.urls import path
 from catalog.views import index, contact
 from django.contrib import admin
+from catalog.apps import CatalogConfig
 
-app_name = 'catalog'
+app_name = CatalogConfig.name
 
 urlpatterns = [
     path('', index, name='index'),
