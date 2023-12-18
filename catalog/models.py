@@ -20,6 +20,7 @@ class Category(models.Model):
 	class Meta:
 		verbose_name = 'категория'  # Настройка наименования одного объекта
 		verbose_name_plural = 'категории'  # Настройка для наименования набора
+		ordering = ('name',)
 
 
 class Product(models.Model):
@@ -42,3 +43,4 @@ class Product(models.Model):
 	class Meta:
 		verbose_name = 'товар'  # Настройка наименования одного объекта
 		verbose_name_plural = 'товары'  # Настройка для наименования набора
+		ordering = ('name',)

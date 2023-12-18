@@ -1,24 +1,5 @@
 {% extends 'catalog/index.html' %}
 
 {% block product %}
-    <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-            <div class="col-3">
-                <div class="card">
-                    <div class="card-header">
-                        Форма для обратной связи
-                    </div>
-                    <div class="card-body">
-                        <form method="post">
-                            {% csrf_token %}
-                            <input name="name" class="form-control mb-2" placeholder="Имя" type="text">
-                            <input name="email" class="form-control mb-2" placeholder="Email" type="email">
-                            <textarea name="message" class="form-control mb-2" placeholder="Ваше сообщение"></textarea>
-                            <input class="btn btn-primary w-100" type="submit" value="Отправить" />
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+    {% include 'catalog/include/inc_product_card.html' %}
 {% endblock %}
