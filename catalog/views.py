@@ -10,11 +10,11 @@ def index(request):
 	path = settings.MEDIA_ROOT
 	img_list = os.listdir(os.path.join(path, 'images'))
 	context = {
-		'product_list': Product.objects.all,
+		'product_list': Product.objects.all()[:5],
 		'title': 'Список продуктов',
 		'images': img_list
 	}
-	return render(request, 'catalog/product.html', context)
+	return render(request, 'catalog/index.html', context)
 
 
 def contact(request):
@@ -25,5 +25,10 @@ def contact(request):
 		print(f'You have new message from {name} ({email}): {message}')
 	return render(request, 'catalog/contacts.html')
 
-def info(request):
-    return render(request, 'catalog/info.html')
+def info(request, pk):
+	product_item = Product.objects.get(pk=pk)
+	context = {
+		'name': '{product_item.name}',
+		'description': '{product_item.description}',
+	}
+	return render(request, 'catalog/info.html', context)

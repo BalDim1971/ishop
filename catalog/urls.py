@@ -15,5 +15,5 @@ app_name = CatalogConfig.name
 urlpatterns = [
     path('', index, name='index'),
     path('contact/', contact, name='contact'),
-    path('info/', info, name='info'),
+    path('<int:pk>/catalog/info/', info, name='info'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

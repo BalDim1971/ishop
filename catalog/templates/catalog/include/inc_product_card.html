@@ -1,22 +1,17 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+{% load my_tags %}
+<div class="row">
     {% for object in product_list %}
-        <div class="col-lg-4">
-            <img src="{% static 'images/apple.jpg' %}" alt="My Image">
-{#            <img class="rounded-circle"#}
-{#                 src="{% object.preview.url %}"#}
-{#                 alt="Generic placeholder image" width="140" height="140">#}
-            <h2>{{ object.name }}</h2>
-            <p>{{ object.description }}</p>
-            <p><a class="btn btn-secondary" href="#" role="button">Посмотреть &raquo;</a></p>
+    <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+<!--            <img src="{% static 'images/apple.jpg' %}" alt="Будет картинка">-->
+            <img src="{{ object.preview|mymedia}}" alt="Будет картинка">
+            <div class="card-body">
+                <h2>{{ object.name }}</h2>
+                <p>{{ object.description }}</p>
+                <p><a class="btn btn-secondary" href="{% url 'catalog:info' object.pk %}" role="button">Посмотреть &raquo;</a></p>
+            </div>
         </div>
+    </div>
     {% endfor %}
-</head>
-<body>
-
-</body>
-</html>
+</div>
