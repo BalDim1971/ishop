@@ -1,12 +1,11 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>Jumbotron Template for Bootstrap</title>
+    <title>Для интернет магазина</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
 
@@ -51,30 +50,8 @@
         </div>
     </div>
 
-    <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-            <div class="col-3">
-                <div class="card">
-                    <div class="card-header">
-                        Форма для обратной связи
-                    </div>
-                    <div class="card-body">
-                        <form method="post">
-                            {% csrf_token %}
-                            <input name="name" class="form-control mb-2" placeholder="Имя" type="text">
-                            <input name="email" class="form-control mb-2" placeholder="Email" type="email">
-                            <textarea name="message" class="form-control mb-2" placeholder="Ваше сообщение"></textarea>
-                            <input class="btn btn-primary w-100" type="submit" value="Отправить" />
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <hr>
-
-    </div> <!-- /container -->
+    {% block contacts %}
+    {% endblock %}
 
 </main>
 
@@ -88,7 +65,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-<script src="/static/popper.min.js"></script>
-<script src="/static/bootstrap.min.js"></script>
+<script src="{% static 'popper.min.js' %}"></script>
+<script src="{% static 'bootstrap.min.js' %}"></script>
 </body>
 </html>
