@@ -1,6 +1,10 @@
 from django.shortcuts import render
 
 
+def product(request):
+	return render(request, 'catalog/product.html')
+
+
 def index(request):
 	return render(request, 'catalog/index.html')
 
