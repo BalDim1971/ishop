@@ -25,10 +25,14 @@ def contact(request):
 		print(f'You have new message from {name} ({email}): {message}')
 	return render(request, 'catalog/contacts.html')
 
+
 def info(request, pk):
 	product_item = Product.objects.get(pk=pk)
 	context = {
-		'name': '{product_item.name}',
-		'description': '{product_item.description}',
+		'name': product_item.name,
+		'description': product_item.description,
+		'price': product_item.price,
+		'date_create': product_item.date_create,
+		'date_last_change': product_item.date_last_change
 	}
 	return render(request, 'catalog/info.html', context)

@@ -1,14 +1,15 @@
-{% extends 'catalog/index.html' %}
+{% extends 'catalog/base.html' %}
 {% load static %}
 {% load my_tags %}
 
-{% block info %}
+{% block content %}
 <div class="col-md-4">
     <div class="card mb-4 box-shadow">
         <img src="{{ object.preview|mymedia}}" alt="Будет картинка">
         <div class="card-body">
-            <h2>{{ object.name }}</h2>
+            <h2>{{ objects_data.name }}</h2>
             <p>{{ object.description }}</p>
+            <p>{{ object.price }}</p>
         </div>
     </div>
 </div>
