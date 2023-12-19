@@ -3,13 +3,16 @@
 {% load my_tags %}
 
 {% block content %}
-<div class="col-md-4">
-    <div class="card mb-4 box-shadow">
-        <img src="{{ object.preview|mymedia}}" alt="Будет картинка">
+<div class="col-md-5">
+    <div class="card mb-5 box-shadow">
+        <img src="{{ one_product.preview|mymedia}}" alt="Будет картинка">
         <div class="card-body">
-            <h2>{{ objects_data.name }}</h2>
-            <p>{{ object.description }}</p>
-            <p>{{ object.price }}</p>
+            <h2>{{ one_product.name }}</h2>
+            <p>{{ one_product.category }}</p>
+            <p>{{ one_product.description }}</p>
+            <p>Цена (за штуку): {{ one_product.price }}</p>
+            <p>Дата создания: {{ one_product.date_create }}</p>
+            <p>Дата изменения: {{ one_product.date_last_change }}</p>
         </div>
     </div>
 </div>
