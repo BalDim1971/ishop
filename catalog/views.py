@@ -1,20 +1,20 @@
 import os
 
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 
 from catalog.models import Product
 from config import settings
 
 
-def index(request):
-	path = settings.MEDIA_ROOT
-	img_list = os.listdir(os.path.join(path, 'images'))
-	context = {
-		'product_list': Product.objects.all()[:5],
-		'title': 'Список продуктов',
-		'images': img_list
-	}
-	return render(request, 'catalog/index.html', context)
+class ProductListView(ListView):
+	model = Product
+	template_name = 'catalog/index.html'
+
+
+class ProductDetailView(DetailView):
+	model = Product
+	template_name = 'catalog/info.html'
 
 
 def contact(request):
@@ -25,11 +25,3 @@ def contact(request):
 		print(f'You have new message from {name} ({email}): {message}')
 	return render(request, 'catalog/contacts.html')
 
-
-def info(request, pk):
-	product_item = Product.objects.get(pk=pk)
-	context = {
-		'one_product': product_item,
-		'title': 'Текущий продукт',
-	}
-	return render(request, 'catalog/info.html', context)

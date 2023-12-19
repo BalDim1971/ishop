@@ -5,14 +5,14 @@
 {% block content %}
 <div class="col-md-5">
     <div class="card mb-5 box-shadow">
-        <img src="{{ one_product.preview|mymedia}}" alt="Будет картинка">
+        <img src="{{ object.preview|mymedia}}" alt="Будет картинка">
         <div class="card-body">
-            <h2>{{ one_product.name }}</h2>
-            <p>{{ one_product.category }}</p>
-            <p>{{ one_product.description }}</p>
-            <p>Цена (за штуку): {{ one_product.price }}</p>
-            <p>Дата создания: {{ one_product.date_create }}</p>
-            <p>Дата изменения: {{ one_product.date_last_change }}</p>
+            <h2>{{ object.name }}</h2>
+            <p>{{ object.category }}</p>
+            <p>{{ object.description }}</p>
+            <p>Цена (за штуку): {{ object.price }}</p>
+            <p>Дата создания: {{ object.date_create }}</p>
+            <p>Дата изменения: {{ object.date_last_change }}</p>
         </div>
     </div>
 </div>
