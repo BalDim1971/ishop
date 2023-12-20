@@ -6,7 +6,7 @@ URL configuration для приложения blog.
 from django.urls import path
 
 from blog.apps import BlogConfig
-from blog.views import BlogCreateView
+from blog.views import BlogCreateView, BlogListView
 
 
 app_name = BlogConfig.name
