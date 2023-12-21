@@ -11,7 +11,7 @@ class Category(models.Model):
 	'''
 	
 	name = models.CharField(max_length=50, verbose_name='Наименование', db_index=True)
-	description = models.TextField(verbose_name='Описание')
+	description = models.TextField(verbose_name='Описание', **NULLABLE)
 	
 	def __str__(self):
 		# Строковое отображение категории

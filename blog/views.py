@@ -14,8 +14,10 @@ from blog.models import Blog
 class BlogCreateView(CreateView):
 	model = Blog
 	fields = ('title', 'body',)
-	success_url = reverse_lazy('blog:list')
-
+	success_url = reverse_lazy('catalog:index')
+	
+	# success_url = reverse_lazy('blog:list')
+	
 	def form_valid(self, form):
 		if form.is_valid():
 			new_blog = form.save()
@@ -23,12 +25,16 @@ class BlogCreateView(CreateView):
 			new_blog.save()
 		return super().form_valid(form)
 
+
 class BlogListView(LoginRequiredMixin, ListView):
 	model = Blog
-
+	
 	def get_queryset(self, *args, **kwargs):
 		queryset = super().get_queryset(*args, **kwargs)
 		queryset = queryset.filter(is_published=True)
-
+		
 		return queryset
-	
+
+
+class BlogDetailView(DetailView):
+	model = Blog

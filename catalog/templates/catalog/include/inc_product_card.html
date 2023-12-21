@@ -4,7 +4,6 @@
     {% for object in product_list %}
     <div class="col-md-4">
         <div class="card mb-4 box-shadow">
-<!--            <img src="{% static 'images/apple.jpg' %}" alt="Будет картинка">-->
             <img src="{{ object.preview|mymedia}}" alt="Будет картинка">
             <div class="card-body">
                 <h2>{{ object.name }}</h2>
