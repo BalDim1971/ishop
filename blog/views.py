@@ -2,7 +2,7 @@
 Представления для задачи Блог
 '''
 
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+# from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import CreateView, DeleteView, ListView, DetailView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.shortcuts import render
@@ -11,7 +11,8 @@ from pytils.translit import slugify
 from blog.models import Blog
 
 
-class BlogListView(LoginRequiredMixin, ListView):
+# class BlogListView(LoginRequiredMixin, ListView):
+class BlogListView(ListView):
     model = Blog
 
     def get_queryset(self, *args, **kwargs):
@@ -32,9 +33,6 @@ class BlogCreateView(CreateView):
             new_blog.slug = slugify(new_blog.title)
             new_blog.save()
         return super().form_valid(form)
-
-    # def get_success_url(self):
-    #     return reverse('blog:view', args=[self.kwargs.get('pk')])
 
 
 class BlogDetailView(DetailView):
