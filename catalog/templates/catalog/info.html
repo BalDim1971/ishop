@@ -14,6 +14,7 @@
             <p>Дата создания: {{ object.date_create }}</p>
             <p>Дата изменения: {{ object.date_last_change }}</p>
         </div>
+        <a href="{% url 'catalog:index' %}" class="btn btn-success">Возврат</a></div>
     </div>
 </div>
 {% endblock %}

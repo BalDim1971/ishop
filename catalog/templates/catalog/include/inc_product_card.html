@@ -8,7 +8,12 @@
             <div class="card-body">
                 <h2>{{ object.name }}</h2>
                 <p>{{ object.description|truncatechars:100 }}</p>
-                <p><a class="btn btn-secondary" href="{% url 'catalog:info' object.pk %}" role="button">Посмотреть &raquo;</a></p>
+                    <a href="{% url 'catalog:info' object.pk %}"
+                       class="btn btn-primary">Подробно</a>
+                    <a href="{% url 'catalog:update_product' object.pk %}"
+                       class="btn btn-primary">Изменить</a>
+                    <a href="{% url 'catalog:delete_product' object.pk %}"
+                       class="btn btn-primary">Удалить</a>
             </div>
         </div>
     </div>
