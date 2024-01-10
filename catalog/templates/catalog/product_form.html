@@ -3,23 +3,41 @@
 {% load my_tags %}
 
 {% block content %}
-<div class="col-6">
-    <div class="card mb-5 box-shadow">
-        <div class="card-header">
-            <h2 class="card-title">
-                Новый товар
-            </h2>
+<div class="col-12">
+    <form class="row" method="post" enctype="multipart/form-data">
+        <div class="col-6">
+            <div class="card mb-5 box-shadow">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        Новый товар
+                    </h2>
+                </div>
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success">
+                        Сохранить
+                    </button>
+                </div>
+                <div class="card-footer"></div>
+            </div>
         </div>
-        <div class="card-body">
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-success">
-                    Сохранить
-                </button>
-            </form>
+        <div class="col-6">
+            <div class="card mb-5 box-shadow">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        Версия товара
+                    </h2>
+                </div>
+                <div class="card-body">
+                    {{ formset.management_form }}
+                    {% for form in formset.forms %}
+                        {{ form.as_p }}
+                    {% endfor%}
+                </div>
+                <div class="card-footer"></div>
+            </div>
         </div>
-        <div class="card-footer"></div>
-    </div>
+    </form>
 </div>
 {% endblock %}
