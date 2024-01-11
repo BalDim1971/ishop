@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>{{ title }}</title>
+    <title>Интернет-магазин - {% if title %} - {{ title }} {% endif %}</title>
 
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
 </head>
@@ -15,7 +15,6 @@
     {% include 'catalog/include/inc_main_title.html' %}
 
     <div class="container">
-        <!-- Example row of columns -->
     {% block content %}
     {% endblock %}
 

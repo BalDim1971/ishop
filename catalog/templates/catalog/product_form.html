@@ -9,7 +9,11 @@
             <div class="card mb-5 box-shadow">
                 <div class="card-header">
                     <h2 class="card-title">
-                        Новый товар
+                        {% if object %}
+                            Изменить товар - {{ object.name }}
+                        {% else %}
+                            Новый товар
+                        {% endif %}
                     </h2>
                 </div>
                 <div class="card-body">
@@ -23,16 +27,19 @@
             </div>
         </div>
         <div class="col-6">
-            <div class="card mb-5 box-shadow">
+            <div class="card mb-4 box-shadow">
                 <div class="card-header">
-                    <h2 class="card-title">
+                    <h4 class="card-title">
                         Версия товара
-                    </h2>
+                    </h4>
                 </div>
                 <div class="card-body">
                     {{ formset.management_form }}
                     {% for form in formset.forms %}
                         {{ form.as_p }}
+                        {% if not forloop.last %}
+                            <hr>
+                        {% endif %}
                     {% endfor%}
                 </div>
                 <div class="card-footer"></div>

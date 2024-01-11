@@ -19,7 +19,7 @@ class ProductListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
-        context['is_active_main'] = True
+        context['version_sign'] = True
         return context
 
 
