@@ -1,3 +1,5 @@
+from typing import Optional
+
 from django.db import models
 
 NULLABLE = {'blank': True, 'null': True}
@@ -25,7 +27,7 @@ class Category(models.Model):
 
 class Product(models.Model):
 	'''
-	Класс-модель, описывающий некий продукт.
+	Класс-модель, описывающий некий товар.
 	'''
 	
 	name = models.CharField(max_length=50, verbose_name='Наименование')
@@ -37,7 +39,7 @@ class Product(models.Model):
 	date_last_change = models.DateTimeField(auto_now_add=True, verbose_name='Дата последнего изменения')
 	
 	def __str__(self):
-		# Строковое отображение продукта
+		# Строковое отображение товара
 		return f'{self.name} ({self.category}) {self.price}'
 	
 	class Meta:
@@ -46,8 +48,8 @@ class Product(models.Model):
 		ordering = ('name',)
 	
 	@property
-	def active_version(self):
-		return self.version_set.get(version_sign=True).last()
+	def active_version(self) -> Optional['VersionProduct']:
+		return self.versionproduct_set.filter(version_sign=True).last()
 
 
 class VersionProduct(models.Model):
@@ -55,13 +57,8 @@ class VersionProduct(models.Model):
 	Класс-модель, описывающий версию товара
 	'''
 	
-	activity = [
-		(True, 'Активно'),
-		(False, 'Неактивно')
-	]
-	
 	product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='товар')
-	version_number = models.IntegerField(verbose_name='номер версии')
+	version_number = models.CharField(max_length=50, verbose_name='номер версии')
 	version_name = models.CharField(max_length=50, verbose_name='название версии')
 	version_sign = models.BooleanField(verbose_name='признак текущей версии', default=True)
 	

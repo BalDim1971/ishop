@@ -1,13 +1,17 @@
 {% load static %}
 {% load my_tags %}
 <div class="row">
-    {% for object in product_list %}
+    {% for object in object_list %}
     <div class="col-md-4">
         <div class="card mb-4 box-shadow">
             <img src="{{ object.preview|mymedia}}" alt="Будет картинка">
             <div class="card-body">
                 <h2>{{ object.name }}</h2>
                 <p>{{ object.description|truncatechars:100 }}</p>
+                <p>{% if object.active_version %}
+                    {{ object.active_version }}
+                    {% endif %}
+                </p>
                     <a href="{% url 'catalog:info' object.pk %}"
                        class="btn btn-primary">Подробно</a>
                     <a href="{% url 'catalog:update_product' object.pk %}"

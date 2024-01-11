@@ -11,7 +11,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-	list_display = ('pk', 'name', 'price', 'category', 'date_create', 'date_last_change')
+	list_display = ('pk', 'name', 'description', 'price', 'category', 'date_create', 'date_last_change')
 	list_filter = ('category',)
 	search_fields = ('name', 'description',)
 
@@ -19,4 +19,4 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(VersionProduct)
 class VersionProductAdmin(admin.ModelAdmin):
 	list_display = ('id', 'product', 'version_number', 'version_name', 'version_sign')
-	list_filter = ('product',)
+	list_filter = ('version_sign',)

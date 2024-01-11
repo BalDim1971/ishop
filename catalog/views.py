@@ -1,5 +1,6 @@
 import os
 
+from django.db import transaction
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -15,11 +16,13 @@ class ProductListView(ListView):
     template_name = 'catalog/index.html'
     extra_context = {
         'title': 'Список товаров',
+        'is_active_main': 'active'
     }
     
     def get_context_data(self, **kwargs):
-        context = super(ProductListView, self).get_context_data(**kwargs)
-        context['version_sign'] = True
+        context = super().get_context_data(**kwargs)
+        context['version'] = VersionProduct.objects.all()
+        
         return context
 
 
@@ -57,20 +60,21 @@ class ProductUpdateView(UpdateView):
     
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        VersionFormset = inlineformset_factory(Product, VersionProduct, form=VersionForm, extra=1)
+        VersionFormset = inlineformset_factory(self.model, VersionProduct, form=VersionForm, extra=1)
         if self.request.method == 'POST':
             context_data['formset'] = VersionFormset(self.request.POST, instance=self.object)
         else:
             context_data['formset'] = VersionFormset(instance=self.object)
-
+        
         return context_data
     
     def form_valid(self, form):
         formset = self.get_context_data()['formset']
-        self.object = form.save()
-        if formset.is_valid():
-            formset.instance = self.object
-            formset.save()
+        with transaction.atomic():
+            self.object = form.save()
+            if formset.is_valid():
+                formset.instance = self.object
+                formset.save()
         
         return super().form_valid(form)
 
