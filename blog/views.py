@@ -2,16 +2,13 @@
 Представления для задачи Блог
 '''
 
-# from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import CreateView, DeleteView, ListView, DetailView, UpdateView
 from django.urls import reverse_lazy, reverse
-from django.shortcuts import render
 from pytils.translit import slugify
 
 from blog.models import Blog
 
 
-# class BlogListView(LoginRequiredMixin, ListView):
 class BlogListView(ListView):
     model = Blog
 

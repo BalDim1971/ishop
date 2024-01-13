@@ -1,0 +1,15 @@
+{% extends 'catalog/base.html' %}
+{% load static %}
+{% load my_tags %}
+
+{% block content %}
+<div class="col-md-5">
+    <div class="card mb-5 box-shadow">
+        <div class="card-body">
+            <h2>{{ object.name }}</h2>
+            <p>{{ object.description }}</p>
+        </div>
+        <a href="{% url 'catalog:category' %}" class="btn btn-success">Возврат</a></div>
+    </div>
+</div>
+{% endblock %}

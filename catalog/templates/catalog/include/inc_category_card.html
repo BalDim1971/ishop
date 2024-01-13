@@ -1,0 +1,20 @@
+{% load static %}
+{% load my_tags %}
+<div class="row">
+    {% for object in object_list %}
+    <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <h2>{{ object.name }}</h2>
+                <p>{{ object.description|truncatechars:100 }}</p>
+                    <a href="{% url 'catalog:category_info' object.pk %}"
+                       class="btn btn-primary">Подробно</a>
+                    <a href="{% url 'catalog:category_update' object.pk %}"
+                       class="btn btn-primary">Изменить</a>
+                    <a href="{% url 'catalog:category_delete' object.pk %}"
+                       class="btn btn-primary">Удалить</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

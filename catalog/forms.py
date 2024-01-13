@@ -4,7 +4,7 @@
 
 from django import forms
 
-from catalog.models import Product, VersionProduct
+from catalog.models import Product, VersionProduct, Category
 
 stop_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
               'радар']
@@ -19,6 +19,12 @@ class StyleFormMixin:
         for field_name, field in self.fields.items():
             if field_name != 'version_sign':
                 field.widget.attrs['class'] = 'form-control'
+
+
+class CategoryForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = '__all__'
 
 
 class ProductForm(StyleFormMixin, forms.ModelForm):

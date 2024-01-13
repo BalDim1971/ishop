@@ -6,9 +6,63 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from catalog.forms import ProductForm, VersionForm
-from catalog.models import Product, VersionProduct
+from catalog.forms import ProductForm, VersionForm, CategoryForm
+from catalog.models import Product, VersionProduct, Category
 from config import settings
+
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'catalog/category.html'
+    extra_context = {
+        'title': 'Список категорий товаров',
+    }
+
+
+class CategoryCreateView(CreateView):
+    model = Category
+    form_class = CategoryForm
+    success_url = reverse_lazy('catalog:category')
+    extra_context = {
+        'title': 'Создать категорию товара',
+    }
+    
+    def form_valid(self, form):
+        if form.is_valid():
+            new_blog = form.save()
+            new_blog.save()
+        return super().form_valid(form)
+
+
+class CategoryDetailView(DetailView):
+    model = Category
+    template_name = 'catalog/category_info.html'
+    extra_context = {
+        'title': 'Подробно о категории',
+    }
+
+
+class CategoryUpdateView(UpdateView):
+    model = Category
+    form_class = CategoryForm
+    success_url = reverse_lazy('catalog:category')
+    extra_context = {
+        'title': 'Обновить данные о категории',
+    }
+    
+    def form_valid(self, form):
+        if form.is_valid():
+            new_blog = form.save()
+            new_blog.save()
+        return super().form_valid(form)
+
+
+class CategoryDeleteView(DeleteView):
+    model = Category
+    success_url = reverse_lazy('catalog:category')
+    extra_context = {
+        'title': 'Удалить категорию',
+    }
 
 
 class ProductListView(ListView):
@@ -45,7 +99,6 @@ class ProductCreateView(CreateView):
     def form_valid(self, form):
         instance = form.save()
         instance.autor = self.request.user
-        # send_order_email()
         
         return super().form_valid(form)
 

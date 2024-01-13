@@ -1,9 +1,13 @@
 from django.db import models
 
-NULLABLE = {'blank': True, 'null': True}
+from catalog.models import NULLABLE
 
 
 class Blog(models.Model):
+	'''
+	Класс, описывающий структуру Блогов (статей)
+	'''
+	
 	title = models.CharField(max_length=150, verbose_name='Наименование')
 	slug = models.CharField(**NULLABLE, max_length=150, verbose_name='slug')
 	body = models.TextField(verbose_name='Описание')

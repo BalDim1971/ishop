@@ -1,0 +1,8 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<a class="btn btn-primary btn-lg mb-5" href="{% url 'catalog:category_create' %}" role="button">
+    Добавить категорию товара
+</a>
+{% include 'catalog/include/inc_category_card.html' %}
+{% endblock %}
