@@ -2,6 +2,7 @@ import os
 
 from django.db import transaction
 from django.forms import inlineformset_factory
+from django.http import Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -68,6 +69,7 @@ class CategoryDeleteView(DeleteView):
 class ProductListView(ListView):
     model = Product
     template_name = 'catalog/index.html'
+    login_url = 'users/login'
     extra_context = {
         'title': 'Список товаров',
         'is_active_main': 'active'
@@ -97,8 +99,9 @@ class ProductCreateView(CreateView):
     }
     
     def form_valid(self, form):
-        instance = form.save()
-        instance.autor = self.request.user
+        self.object = form.save()
+        self.object.autor = self.request.user
+        self.object.save()
         
         return super().form_valid(form)
 
@@ -107,17 +110,24 @@ class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:index')
+    login_url = 'users:login'
     extra_context = {
         'title': 'Обновить данные о товаре',
     }
     
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if self.object.author != self.request.user:
+            raise Http404
+        return self.object
+
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        VersionFormset = inlineformset_factory(self.model, VersionProduct, form=VersionForm, extra=1)
+        version_formset = inlineformset_factory(self.model, VersionProduct, form=VersionForm, extra=1)
         if self.request.method == 'POST':
-            context_data['formset'] = VersionFormset(self.request.POST, instance=self.object)
+            context_data['formset'] = version_formset(self.request.POST, instance=self.object)
         else:
-            context_data['formset'] = VersionFormset(instance=self.object)
+            context_data['formset'] = version_formset(instance=self.object)
         
         return context_data
     

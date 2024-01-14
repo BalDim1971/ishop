@@ -6,11 +6,15 @@ from django.views.generic import CreateView, DeleteView, ListView, DetailView, U
 from django.urls import reverse_lazy, reverse
 from pytils.translit import slugify
 
+from blog.forms import BlogForm
 from blog.models import Blog
 
 
 class BlogListView(ListView):
     model = Blog
+    extra_context = {
+        'title': 'Список статей',
+    }
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
@@ -21,8 +25,11 @@ class BlogListView(ListView):
 
 class BlogCreateView(CreateView):
     model = Blog
-    fields = ('title', 'body', 'preview',)
+    form_class = BlogForm
     success_url = reverse_lazy('blog:list')
+    extra_context = {
+        'title': 'Создание статьи',
+    }
 
     def form_valid(self, form):
         if form.is_valid():
@@ -34,6 +41,9 @@ class BlogCreateView(CreateView):
 
 class BlogDetailView(DetailView):
     model = Blog
+    extra_context = {
+        'title': 'Подробности статьи',
+    }
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
@@ -44,7 +54,11 @@ class BlogDetailView(DetailView):
 
 class BlogUpdateView(UpdateView):
     model = Blog
-    fields = ('title', 'body', 'preview')
+    form_class = BlogForm
+    success_url = reverse_lazy('blog:list')
+    extra_context = {
+        'title': 'Обновить статью',
+    }
 
     def get_success_url(self):
         return reverse('blog:view', args=[self.kwargs.get('pk')])
@@ -53,3 +67,6 @@ class BlogUpdateView(UpdateView):
 class BlogDeleteView(DeleteView):
     model = Blog
     success_url = reverse_lazy('blog:list')
+    extra_context = {
+        'title': 'Удаление статьи',
+    }
