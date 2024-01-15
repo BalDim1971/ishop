@@ -68,10 +68,10 @@ class VerificationTemplateView(TemplateView):
     template_name = 'users/msg_email.html'
     
     def post(self, request):
-        ver_code = request.POST.get('ver_code')
-        user_code = User.objects.filter(ver_code=ver_code).first()
+        code = request.POST.get('code')
+        user_code = User.objects.filter(code=code).first()
         
-        if user_code is not None and user_code.ver_code == ver_code:
+        if user_code is not None and user_code.code == code:
             user_code.is_active = True
             user_code.save()
             return redirect('users:login')
