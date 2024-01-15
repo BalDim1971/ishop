@@ -1,8 +1,10 @@
 {% extends 'catalog/base.html' %}
 
 {% block content %}
+{% if user.is_authenticated %}
 <a class="btn btn-primary btn-lg mb-5" href="{% url 'catalog:category_create' %}" role="button">
     Добавить категорию товара
 </a>
+{% endif %}
 {% include 'catalog/include/inc_category_card.html' %}
 {% endblock %}

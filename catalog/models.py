@@ -58,7 +58,6 @@ class Product(models.Model):
     @property
     def active_version(self) -> Optional['VersionProduct']:
         return VersionProduct.objects.filter(version_sign=True, product_id=self.id).first()
-    # return self.versionproduct_set.filter(version_sign=True).last()
 
 
 class VersionProduct(models.Model):
