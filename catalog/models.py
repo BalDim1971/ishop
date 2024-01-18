@@ -38,7 +38,7 @@ class Product(models.Model):
     date_create = models.DateTimeField(auto_now=True, verbose_name='Дата создания')
     date_last_change = models.DateTimeField(auto_now_add=True, verbose_name='Дата последнего изменения')
     
-    autor = models.ForeignKey('users.User', on_delete=models.SET_NULL, verbose_name='автор', **NULLABLE)
+    author = models.ForeignKey('users.User', on_delete=models.SET_NULL, verbose_name='автор', **NULLABLE)
     
     def __str__(self):
         # Строковое отображение товара

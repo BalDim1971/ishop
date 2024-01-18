@@ -9,7 +9,6 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from catalog.forms import ProductForm, VersionForm, CategoryForm
 from catalog.models import Product, VersionProduct, Category
-from config import settings
 
 
 class CategoryListView(ListView):
@@ -100,7 +99,7 @@ class ProductCreateView(CreateView):
     
     def form_valid(self, form):
         self.object = form.save()
-        self.object.autor = self.request.user
+        self.object.author = self.request.user
         self.object.save()
         
         return super().form_valid(form)
