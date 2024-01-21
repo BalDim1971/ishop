@@ -11,9 +11,9 @@ stop_words = ['казино', 'криптовалюта', 'крипта', 'би�
 
 
 class StyleFormMixin:
-    '''
+    """
     Общий класс для стилизации форм
-    '''
+    """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
@@ -22,12 +22,18 @@ class StyleFormMixin:
 
 
 class CategoryForm(StyleFormMixin, forms.ModelForm):
+    """
+    Класс с описанием формы для категорий
+    """
     class Meta:
         model = Category
         fields = '__all__'
 
 
 class ProductForm(StyleFormMixin, forms.ModelForm):
+    """
+    Класс с описанием формы для товара
+    """
     class Meta:
         model = Product
         fields = '__all__'
@@ -50,6 +56,9 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
 
 
 class VersionForm(StyleFormMixin, forms.ModelForm):
+    """
+    Класс с описанием формы для версии товара
+    """
     class Meta:
         model = VersionProduct
         fields = '__all__'

@@ -1,5 +1,6 @@
 import os
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.forms import inlineformset_factory
 from django.http import Http404
@@ -16,6 +17,7 @@ class CategoryListView(ListView):
     template_name = 'catalog/category.html'
     extra_context = {
         'title': 'Список категорий товаров',
+        'object_list': Category.objects.all()
     }
 
 
@@ -65,13 +67,14 @@ class CategoryDeleteView(DeleteView):
     }
 
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'catalog/index.html'
     login_url = 'users/login'
     extra_context = {
         'title': 'Список товаров',
-        'is_active_main': 'active'
+        'is_active_main': 'active',
+        'object_list': Product.objects.filter(status='Активна')
     }
     
     def get_context_data(self, **kwargs):
@@ -81,7 +84,7 @@ class ProductListView(ListView):
         return context
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'catalog/info.html'
     extra_context = {
@@ -89,7 +92,7 @@ class ProductDetailView(DetailView):
     }
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:index')

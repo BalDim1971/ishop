@@ -8,9 +8,9 @@ NULLABLE = {'blank': True, 'null': True}
 # Create your models here.
 
 class Category(models.Model):
-    '''
-	Класс-модель, описывающий некоторую категорию продуктов.
-	'''
+    """
+    Класс-модель, описывающий некоторую категорию продуктов.
+    """
     
     name = models.CharField(max_length=50, verbose_name='Наименование', db_index=True)
     description = models.TextField(verbose_name='Описание', **NULLABLE)
@@ -26,10 +26,18 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    '''
-	Класс-модель, описывающий некий товар.
-	'''
+    """
+    Класс-модель, описывающий некий товар.
+    """
     
+    ACTIV = 'Активна'
+    NO_ACTIV = 'Не активна'
+
+    SELECT_STATUS = [
+        (ACTIV, 'Активна'),
+        (NO_ACTIV, 'Не активна'),
+    ]
+
     name = models.CharField(max_length=50, verbose_name='Наименование')
     description = models.TextField(verbose_name='Описание')
     preview = models.ImageField(upload_to='product/', verbose_name='Изображение', **NULLABLE)
@@ -39,7 +47,8 @@ class Product(models.Model):
     date_last_change = models.DateTimeField(auto_now_add=True, verbose_name='Дата последнего изменения')
     
     author = models.ForeignKey('users.User', on_delete=models.SET_NULL, verbose_name='автор', **NULLABLE)
-    
+    status = models.CharField(max_length=50, default=NO_ACTIV, choices=SELECT_STATUS, verbose_name='Статус')
+
     def __str__(self):
         # Строковое отображение товара
         return f'{self.name} ({self.category}) {self.price}'
@@ -61,9 +70,9 @@ class Product(models.Model):
 
 
 class VersionProduct(models.Model):
-    '''
-	Класс-модель, описывающий версию товара
-	'''
+    """
+    Класс-модель, описывающий версию товара
+    """
     
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='товар')
     version_number = models.CharField(max_length=50, verbose_name='номер версии')
