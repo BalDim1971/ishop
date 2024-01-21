@@ -1,5 +1,6 @@
-
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.cache import cache
 from django.db import transaction
 from django.forms import inlineformset_factory
 from django.http import Http404
@@ -9,6 +10,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from catalog.forms import ProductForm, VersionForm, CategoryForm, ModeratorForm
 from catalog.models import Product, VersionProduct, Category
+from catalog.services import get_category_cache, get_cache_product_list
 
 
 class CategoryListView(ListView):
@@ -16,9 +18,10 @@ class CategoryListView(ListView):
     template_name = 'catalog/category.html'
     extra_context = {
         'title': 'Список категорий товаров',
-        'object_list': Category.objects.all()
+        'object_list': get_category_cache(),
+        # 'object_list': Category.objects.all()
     }
-
+    
 
 class CategoryCreateView(CreateView):
     model = Category
@@ -73,7 +76,8 @@ class ProductListView(LoginRequiredMixin, ListView):
     extra_context = {
         'title': 'Список товаров',
         'is_active_main': 'active',
-        'object_list': Product.objects.filter(status='Активна')
+        'object_list': get_cache_product_list()
+        # 'object_list': Product.objects.filter(status='Активна')
     }
     
     def get_context_data(self, **kwargs):
@@ -89,7 +93,7 @@ class ProductDetailView(DetailView):
     extra_context = {
         'title': 'Подробная информация',
     }
-
+    
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product

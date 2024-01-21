@@ -5,6 +5,7 @@ URL configuration для приложения catalog.
 
 from django.conf.urls.static import static
 from django.urls import path
+
 from catalog.views import contact, ProductListView, ProductDetailView, ProductCreateView, ProductUpdateView, \
     ProductDeleteView, CategoryCreateView, CategoryListView, CategoryDetailView, CategoryUpdateView, CategoryDeleteView
 from catalog.apps import CatalogConfig
