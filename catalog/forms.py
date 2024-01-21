@@ -63,3 +63,11 @@ class VersionForm(StyleFormMixin, forms.ModelForm):
         model = VersionProduct
         fields = '__all__'
     
+
+class ModeratorForm(StyleFormMixin, forms.ModelForm):
+    """
+    Класс с описанием формы товара для модератора ?
+    """
+    class Meta:
+        model = Product
+        fields = ('description', 'category', 'status',)

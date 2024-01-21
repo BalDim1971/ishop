@@ -12,13 +12,15 @@
                     {{ object.active_version }}
                     {% endif %}
                 </p>
-                    <a href="{% url 'catalog:info' object.pk %}"
-                       class="btn btn-primary">Подробно</a>
-                {% if request.user == object.author %}
+                <a href="{% url 'catalog:info' object.pk %}"
+                   class="btn btn-primary">Подробно</a>
+                {% if request.user == object.author or request.user.is_staff and not request.user.is_superuser %}
                 <a href="{% url 'catalog:update_product' object.pk %}"
-                       class="btn btn-primary">Изменить</a>
-                    <a href="{% url 'catalog:delete_product' object.pk %}"
-                       class="btn btn-primary">Удалить</a>
+                   class="btn btn-primary">Изменить</a>
+                {% endif %}
+                {% if request.user == object.author %}
+                <a href="{% url 'catalog:delete_product' object.pk %}"
+                   class="btn btn-primary">Удалить</a>
                 {% endif %}
             </div>
         </div>

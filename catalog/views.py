@@ -1,4 +1,3 @@
-import os
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
@@ -8,7 +7,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from catalog.forms import ProductForm, VersionForm, CategoryForm
+from catalog.forms import ProductForm, VersionForm, CategoryForm, ModeratorForm
 from catalog.models import Product, VersionProduct, Category
 
 
@@ -84,7 +83,7 @@ class ProductListView(LoginRequiredMixin, ListView):
         return context
 
 
-class ProductDetailView(LoginRequiredMixin, DetailView):
+class ProductDetailView(DetailView):
     model = Product
     template_name = 'catalog/info.html'
     extra_context = {
@@ -108,7 +107,7 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:index')
@@ -117,9 +116,15 @@ class ProductUpdateView(UpdateView):
         'title': 'Обновить данные о товаре',
     }
     
+    def get_form_class(self):
+        if self.request.user.is_superuser:
+            return ProductForm
+        else:
+            return ModeratorForm
+
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
-        if self.object.author != self.request.user:
+        if self.object.author != self.request.user and not self.request.user.is_staff:
             raise Http404
         return self.object
 
